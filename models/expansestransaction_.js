@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class IncomeTransaction extends Model {
+  class ExpansesTransaction extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,30 +11,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Users,{
-        foreignKey :`user_id`,
-        onDelete: "CASCADE"
+      this.belongsTo(modes.Users,{
+        foreignKey:`user_id`,
+        onDelate: "CASCADE"
       })
-      this.belongsTo(models.Wallets, {
-        foreignKey : "wallet_id",
-        onDelete: "CASCADE" // jika wallet dihapus maka transaksi dihapus
+      this.belongsTo(models,Wallets,{
+        foreignKey:"wallet_id",
+        onDelate: "CASCADE"
       })
-      this.belongsTo(models.Incomes, {
-        foreignKey : "income_id",
-        onDelete: "CASCADE" // jika wallet dihapus maka transaksi dihapus
+      this.belongsTo(models.Expanses,{
+        foreignKey: "expanses_id"
       })
+
     }
   }
-  IncomeTransaction.init({
+  ExpansesTransaction.init({
     user_id: DataTypes.INTEGER,
     wallet_id: DataTypes.INTEGER,
     income_id: DataTypes.INTEGER,
+    expanses_id: DataTypes.INTEGER,
     amount: DataTypes.INTEGER,
     date_transaction: DataTypes.DATE,
     description: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'IncomeTransaction',
+    modelName: 'ExpansesTransaction',
   });
-  return IncomeTransaction;
+  return ExpansesTransaction;
 };

@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     wallet_id: DataTypes.INTEGER,
     income_id: DataTypes.INTEGER,
+    expanses_id: DataTypes.INTEGER,
     amount: DataTypes.INTEGER,
     date_transaction: DataTypes.DATE,
     description: DataTypes.STRING

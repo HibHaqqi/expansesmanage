@@ -11,24 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(modes.User,{
+      this.belongsTo(modes.Users,{
         foreignKey:`user_id`,
         onDelate: "CASCADE"
       })
-      this.belongsTo(models,Wallet,{
+      this.belongsTo(models,Wallets,{
         foreignKey:"wallet_id",
         onDelate: "CASCADE"
       })
       this.belongsTo(models.Expanses,{
         foreignKey: "expanses_id"
       })
-
     }
   }
   ExpansesTransaction.init({
     user_id: DataTypes.INTEGER,
     wallet_id: DataTypes.INTEGER,
-    income_id: DataTypes.INTEGER,
     expanses_id: DataTypes.INTEGER,
     amount: DataTypes.INTEGER,
     date_transaction: DataTypes.DATE,

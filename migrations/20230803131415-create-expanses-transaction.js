@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Wallets', {
+    await queryInterface.createTable('ExpansesTransactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,12 +14,34 @@ module.exports = {
         allowNull: false,
         onDelete: 'CASCADE', // untuk kasih konfig apabila data member dihapus maka data loan dihapus
         references: {
-          model: "Users",
+          model: "User",
           key: 'id'
         }
       },
-      category: {
-        type: Sequelize.STRING
+      wallet_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE', // untuk kasih konfig apabila data member dihapus maka data loan dihapus
+        references: {
+          model: "wallet",
+          key: 'id'
+        }
+      },
+      expanses_id: {
+        type: Sequelize.INTEGER,
+        allowNull : false,
+        references :{
+          model:"Expanses",
+          key:'id'
+        }
+
+        
+      },
+      amount: {
+        type: Sequelize.INTEGER
+      },
+      date_transaction: {
+        type: Sequelize.DATE
       },
       description: {
         type: Sequelize.STRING
@@ -35,6 +57,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Wallets');
+    await queryInterface.dropTable('ExpansesTransactions');
   }
 };
