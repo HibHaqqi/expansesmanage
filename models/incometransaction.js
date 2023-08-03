@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.User,{
+        foreignKey :`user_id`,
+        onDelete: "CASCADE"
+      })
+      this.belongsTo(models.Wallet, {
+        foreignKey : "wallet_id",
+        onDelete: "CASCADE" // jika wallet dihapus maka transaksi dihapus
+      })
+      this.belongsTo(models.Income, {
+        foreignKey : "income_id",
+        onDelete: "CASCADE" // jika wallet dihapus maka transaksi dihapus
+      })
     }
   }
   IncomeTransaction.init({
