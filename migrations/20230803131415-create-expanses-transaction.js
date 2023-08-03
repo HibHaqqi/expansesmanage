@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
         onDelete: 'CASCADE', // untuk kasih konfig apabila data member dihapus maka data loan dihapus
         references: {
-          model: "User",
+          model: "Users",
           key: 'id'
         }
       },
@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
         onDelete: 'CASCADE', // untuk kasih konfig apabila data member dihapus maka data loan dihapus
         references: {
-          model: "wallet",
+          model: "Wallets",
           key: 'id'
         }
       },

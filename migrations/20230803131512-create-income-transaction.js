@@ -10,13 +10,31 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE', // untuk kasih konfig apabila data member dihapus maka data loan dihapus
+        references: {
+          model: "Users",
+          key: 'id'
+        }
       },
       wallet_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE', // untuk kasih konfig apabila data member dihapus maka data loan dihapus
+        references: {
+          model: "Wallets",
+          key: 'id'
+        }
       },
       income_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE', // untuk kasih konfig apabila data member dihapus maka data loan dihapus
+        references: {
+          model: "Incomes",
+          key: 'id'
+        }
       },
       amount: {
         type: Sequelize.INTEGER
