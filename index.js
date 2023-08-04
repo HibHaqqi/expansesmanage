@@ -1,4 +1,5 @@
 const express = require("express");
+const router = require("./routers/routers");
 
 
 const app = express();
@@ -12,6 +13,8 @@ app.use(express.urlencoded({
 app.get("/",(req,res)=>{
     res.send("server up");
 })
+
+app.use("/",router);
 
 app.listen(port, (res,req)=>{
     console.log(`server up on server ${port}`);
