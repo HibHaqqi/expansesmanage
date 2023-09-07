@@ -4,7 +4,7 @@ const {Expanses,Income} =require("../models");
 
 
 //add expanses category
-category.get('/v1/expanses',async (req,res)=>{
+category.get('/v1/category',async (req,res)=>{
         const expanse = await Expanses.findAll();
         try {
              res.status(200).json({
@@ -23,7 +23,7 @@ category.get('/v1/expanses',async (req,res)=>{
         
 })
 
-category.post('/v1/expanses',async (req,res)=>{
+category.post('/v1/category',async (req,res)=>{
         const {category,description } =req.body;
         try {
         const expanse = await Expanses.create({
