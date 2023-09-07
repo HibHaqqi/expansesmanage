@@ -51,10 +51,10 @@ transaction.get('/v1/expenses',async (req,res)=>{
 
 transaction.post('/v1/expenses',async (req,res)=>{
     //post transaction on page expanses to post transaction 
-    const {user_id, wallet_id, expanses_id,amaount,date_transaction,description} =req.body;
+    const {user_id, wallet_id, expanses_id,amount,date_transaction,description} =req.body;
     try {
         const expanseTrans = await ExpansesTransaction.create({
-            user_id , wallet_id, expanses_id, amaount,date_transaction,description
+            user_id , wallet_id, expanses_id, amount,date_transaction,description
         });
         res.status(200).json({
             status: "Success",
