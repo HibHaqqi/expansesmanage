@@ -1,7 +1,7 @@
 const express =require("express");
 const transaction = express.Router();
 const {ExpansesTransaction} =require("../models");
-const {sequelize,Op} = require("sequelize");
+const {Sequelize,Op} = require("sequelize");
 
 //add expanses transaction
 transaction.get('/v1/expenses/bymonth',async (req,res)=>{
@@ -10,13 +10,13 @@ transaction.get('/v1/expenses/bymonth',async (req,res)=>{
     // find all expenses transactions where month of createdAt equals to fromMonth
     const transactionMonthly = await ExpansesTransaction.findAll({
     where: {
-        date_transaction: {
-          [Op.eq]: [sequelize.fn('month', sequelize.col('createdAt')), fromMonth],
+        createAt: {
+          [Op.eq]: [Sequelize.fn('MONTH', Sequelize.col('createAt')), 2],
         },
       },
       // sum the amount column of all transactions
       attributes: [
-        [sequelize.fn('sum', sequelize.col('amount')), 'total_expenses'],
+        [Sequelize.fn('sum', Sequelize.col('amount')), 'total_expenses'],
       ],
     });
   
