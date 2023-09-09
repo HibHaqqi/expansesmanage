@@ -33,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'ExpansesTransaction',
+    modelName: 'ExpansesTransaction'
+    
   });
   return ExpansesTransaction;
 };
