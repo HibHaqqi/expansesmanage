@@ -1,6 +1,6 @@
 const express = require("express");
 const router = require("./routers/routers");
-
+const ejs = require("ejs");
 
 const app = express();
 const port = 3000;
@@ -10,8 +10,12 @@ app.use(express.urlencoded({
     extended:false
 }));
 
+
+app.set('view engine', 'ejs')
+app.set('views', "./pages")
+
 app.get("/",(req,res)=>{
-    res.send("server up");
+    res.render('home');
 })
 
 app.use("/",router);
