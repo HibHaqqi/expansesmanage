@@ -11,6 +11,9 @@ pages.get('/',(req,res)=>{
 pages.get('/regis',(req,res)=>{
     res.render('registration');
 });
+pages.get('/login',(req,res)=>{
+    res.render('login');
+});
 
 pages.get('/dashboard',(req,res)=>{
     res.render('dashboard');

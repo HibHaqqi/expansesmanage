@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.use("/api",category);
 router.use("/transaction",transaction);
-router.use("/login", login);
+router.use("/user", login);
 router.use("/wallet",wallet);
 router.use("/fruits",fruit);
 router.use("/",page);

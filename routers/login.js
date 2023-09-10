@@ -5,7 +5,7 @@ const {User} =require("../models");
 
 
 //add users login
-login.get('/v1/user', async (req, res) => {
+login.get('/login', async (req, res) => {
     try {
       //menerima email dan password dari body request
       const { email, password } = req.body;
@@ -44,7 +44,7 @@ login.get('/v1/user', async (req, res) => {
     }
   });
 //fungsi registrasi
-login.post('/v1/user', async (req, res) => {
+login.post('/registration', async (req, res) => {
     try {
       //menerima data dari body request
       const { name, email, password, role } = req.body;
