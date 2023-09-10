@@ -1,4 +1,4 @@
-const { ExpansesTransaction, sequelize } = require("../models");
+const { sequelize } = require("../models");
 const Sequelize = require("sequelize");
 
 class transaction {
@@ -28,4 +28,10 @@ class transaction {
   }
 }
 
-module.exports = transaction;
+
+class wallet{
+
+
+}
+
+module.exports = {transaction,wallet};
