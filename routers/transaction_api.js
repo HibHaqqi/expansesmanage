@@ -1,26 +1,53 @@
 const express = require("express");
 const transaction = express.Router();
-const { ExpansesTransaction ,sequelize } = require("../models");
-const Sequelize = require("sequelize");
+const { ExpansesTransaction, sequelize } = require("../models");
 
+const Transaction = require("../service/transaction");
 
-//add expanses transaction
+//total expanses filter by month to chart dashboard
 transaction.get("/v1/expenses/bymonth", async (req, res) => {
-  //total expanses filter by month to chart dashboard \
-  const result = await sequelize.query(
-    `SELECT
-        DATE_TRUNC('month', date_transaction) AS month,
-        SUM(amount) AS total_amount
-    FROM "ExpansesTransactions"
-    GROUP BY month
-    ORDER BY month;`,
-    { type: Sequelize.QueryTypes.SELECT }
-  );
+  //total expanses filter by month to chart dashboard 
+  try {
+    const bodyJson = req.body;
+    const transactionService = new Transaction();
+    const transactionByMonth = await transactionService.transactionByMonth(
+      bodyJson
+    );
 
-  res.status(200).json({
-    status: "success",
-    data: result,});
-  
+    res.status(200).json({
+      status: "success",
+      data: transactionByMonth,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+      stack: error,
+    });
+  }
+});
+
+  //total expanses filter by month and category to chart dashboard 
+transaction.get("/v1/expenses/bycategory", async (req, res) => {
+  //total expanses filter by month and category to chart dashboard 
+  try {
+    const bodyJson = req.body;
+    const transactionService = new Transaction();
+    const transactionByMonthCategory = await transactionService.transactionByMonthCategory(
+      bodyJson
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: transactionByMonthCategory,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+      stack: error,
+    });
+  }
 });
 
 //transaction.get('/v1/expenses',async (req,res)=>{
