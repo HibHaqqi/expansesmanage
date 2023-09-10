@@ -10,8 +10,5 @@ fruit.get( '', (req, res) => {
     res.render('fruit', {fruitsAry});
 })
 
-fruit.get('/regis',(req,res)=>{
-    res.render('registration');
-});
 
 module.exports = fruit;
