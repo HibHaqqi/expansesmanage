@@ -21,7 +21,7 @@ transaction.get("/v1/expenses/bymonth", async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: "failed",
-      message: err.message,
+      message: error.message,
       stack: error,
     });
   }
@@ -44,7 +44,7 @@ transaction.get("/v1/expenses/bycategory", async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: "failed",
-      message: err.message,
+      message: error.message,
       stack: error,
     });
   }

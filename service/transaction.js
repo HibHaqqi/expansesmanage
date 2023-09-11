@@ -1,9 +1,12 @@
-const { sequelize } = require("../models");
+const { ExpansesTransaction, sequelize } = require("../models");
 const Sequelize = require("sequelize");
 
-class transaction {
+class Transaction {
+  constructor() {
+    this.expansesTransaction= new ExpansesTransaction;
+  }
   async transactionByMonth() {
-    const result = await sequelize.query(
+    const result = await this.expansesTransaction.sequelize.query(
       `SELECT
                     DATE_TRUNC('month', date_transaction) AS month,
                     SUM(amount) AS total_amount 
@@ -43,4 +46,5 @@ async saldoUser(){
 
 }
 
-module.exports = {transaction,wallet};
+module.exports = Transaction;
+
