@@ -16,21 +16,21 @@ pages.get('/login',(req,res)=>{
 });
 
 pages.get('/dashboard',(req,res)=>{
-    res.render('dashboard');
+    res.render('dashboardcss');
 });
 
 pages.get('/dashboard/expanse',(req,res)=>{
-    res.render('dashboardexpanses');
+    res.render('dashboard.expanses');
 });
 
 
 pages.get('/dashboard/income',(req,res)=>{
-    res.render('dashboardincome');
+    res.render('dashboard.income');
 });
 
 
 pages.get('/dashboard/wallet',(req,res)=>{
-    res.render('dashboardwallet');
+    res.render('dashboard.wallet');
 });
 
 pages.get('/profile',(req,res)=>{

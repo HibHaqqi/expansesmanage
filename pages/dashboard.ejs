@@ -12,17 +12,43 @@
     />
   </head>
   <body>
-    <div class="container">
-      <%- include('layouts/navbar'); %>
-      <%- include('layouts/sidebar'); %>
-      <div class="row">
-        <div class="col">
-          
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <div class="bg-dark col-auto col-md-4 col-lg-3 min-vh-100">
+          <div class="bg-dark p-2">
+            <a href="" class="d-flex text-decoration-none mt-1 align-items-center text-white">
+              <span class="fs-4 d-none d-sm-inline">Side Menu</span>
+            </a>
+            <ul class="nav nav-pills flex-column mt-4">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">
+                        <i class="fs-5 fa fa-gauge"></i><span class="fs-4 d-none d-sm-inline">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">
+                        <i class="fs-5 fa fa-gauge"></i><span class="fs-4 d-none d-sm-inline">Expanses</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">
+                        <i class="fs-5 fa fa-gauge"></i><span class="fs-4 d-none d-sm-inline">Income</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">
+                        <i class="fs-5 fa fa-gauge"></i><span class="fs-4 d-none d-sm-inline">Wallet</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">
+                        <i class="fs-5 fa fa-users"></i><span class="fs-4 d-none d-sm-inline">Profile</span>
+                    </a>
+                </li>
+            </ul>
+          </div>
         </div>
-        <div class="col">Column</div>
-
       </div>
     </div>
-    
   </body>
 </html>
