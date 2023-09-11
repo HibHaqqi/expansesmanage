@@ -2,6 +2,7 @@ const express =require("express");
 const login = express.Router();
 const bcrypt = require('bcrypt');
 const {User} =require("../models");
+require('dotenv').config();
 
 
 //add users login
@@ -31,7 +32,7 @@ login.get('/login', async (req, res) => {
       //menghasilkan token JWT jika password cocok
       const jwt = require('jsonwebtoken');
       const payload = { id: user.id, role: user.role };
-      const secret = process.env.JWT_SECRET;
+      const secret = process.env.SECRET_KEY;
       const options = { expiresIn: '1h' };
       const token = jwt.sign(payload, secret, options);
   
