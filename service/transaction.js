@@ -32,19 +32,5 @@ class Transaction {
 }
 
 
-class wallet{
-// get data saldo per wallet by user     
-async saldoWalletUser(){
-
-
-}
-
-//get saldo total user 
-async saldoUser(){
-
-}
-
-}
-
 module.exports = Transaction;
 
