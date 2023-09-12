@@ -37,7 +37,8 @@ login.get('/login', async (req, res) => {
       const token = jwt.sign(payload, secret, options);
   
       //mengirim response dengan token JWT
-      res.status(200).json({ message: 'Login berhasil', token });
+      res.status(200).json({ message: 'Login berhasil' });
+      res.render('dashboardcss');
     } catch (error) {
       //tangani error
       console.error(error);

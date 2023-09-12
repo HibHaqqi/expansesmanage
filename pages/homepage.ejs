@@ -26,16 +26,16 @@
         <!---Login form--->
         <div class="form-box login">
             <h2>Login</h2>
-            <form action="#">
+            <form action="/user/login" method="GET">
                 <div class="input-box">
                     <span class="icon"><i class="fas fa-envelope"></i></span>
-                    <input type="email" required>
-                    <label for="">Email</label>
+                    <input type="email" required id="email" name="email">
+                    <label for="email">Email</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" required>
-                    <label for="">Password</label>
+                    <input type="password" required id="password" name="password">
+                    <label for="password">Password</label>
                 </div>
                 <div class="remember-forgot">
                     <label><input type="checkbox">Remember me</label>
@@ -50,26 +50,26 @@
         <!---Registration form--->
         <div class="form-box register">
             <h2>Registration</h2>
-            <form action="#">
+            <form action="/user/registration" method="POST">
                 <div class="input-box">
                     <span class="icon"><i class="fas fa-user"></i></span>
-                    <input type="text" required>
-                    <label for="">Username</label>
+                    <input type="name" required id="name" name="name">
+                    <label for="name">Username</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><i class="fas fa-envelope"></i></span>
-                    <input type="email" required>
-                    <label for="">Email</label>
+                    <input type="email" required id="email" name="email">
+                    <label for="email">Email</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" required>
-                    <label for="">Password</label>
+                    <input type="password" required id="password" name="password">
+                    <label for="password">Password</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><i class="fas fa-user-lock"></i></span>
-                    <input type="text" required>
-                    <label for="">Role</label>
+                    <input type="role" required id="role" name="role">
+                    <label for="role">Role</label>
                 </div>
                 <div class="remember-forgot">
                     <label><input type="checkbox">I agree to the terms & condition</label>
