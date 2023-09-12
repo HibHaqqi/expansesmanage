@@ -11,6 +11,11 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/css/stylehomepage.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+      rel="stylesheet"
+    />
+    
   </head>
   <body>
     <header>
@@ -22,67 +27,73 @@
       </nav>
     </header>
     <div class="wrapper">
-        <span class="icon-close"><i class="fas fa-times"></i></span>
-        <!---Login form--->
-        <div class="form-box login">
-            <h2>Login</h2>
-            <form action="/user/login" method="POST">
-                <div class="input-box">
-                    <span class="icon"><i class="fas fa-envelope"></i></span>
-                    <input type="email" required id="email" name="email">
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-box">
-                    <span class="icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" required id="password" name="password">
-                    <label for="password">Password</label>
-                </div>
-                <div class="remember-forgot">
-                    <label><input type="checkbox">Remember me</label>
-                    <a href="#">Forgot Password</a>
-                </div>
-                <button type="submit" class="btn">Login</button>
-                <div class="login-register">
-                    <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
-                </div>
-            </form>
-        </div>
-        <!---Registration form--->
-        <div class="form-box register">
-            <h2>Registration</h2>
-            <form action="/user/registration" method="POST">
-                <div class="input-box">
-                    <span class="icon"><i class="fas fa-user"></i></span>
-                    <input type="name" required id="name" name="name">
-                    <label for="name">Username</label>
-                </div>
-                <div class="input-box">
-                    <span class="icon"><i class="fas fa-envelope"></i></span>
-                    <input type="email" required id="email" name="email">
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-box">
-                    <span class="icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" required id="password" name="password">
-                    <label for="password">Password</label>
-                </div>
-                <div class="input-box">
-                    <span class="icon"><i class="fas fa-user-lock"></i></span>
-                    <input type="role" required id="role" name="role">
-                    <label for="role">Role</label>
-                </div>
-                <div class="remember-forgot">
-                    <label><input type="checkbox">I agree to the terms & condition</label>
-                    
-                </div>
-                <button type="submit" class="btn">Register</button>
-                <div class="login-register">
-                    <p>already have a account ? <a href="#" class="login-link">Login</a></p>
-                </div>
-            </form>
-        </div>
-
+      <span class="icon-close"><i class="fas fa-times"></i></span>
+      <!---Login form--->
+      <div class="form-box login">
+        <h2>Login</h2>
+        <form action="/user/login" method="POST">
+          <div class="input-box">
+            <span class="icon"><i class="fas fa-envelope"></i></span>
+            <input type="email" required id="email" name="email" />
+            <label for="email">Email</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="fas fa-lock"></i></span>
+            <input type="password" required id="password" name="password" />
+            <label for="password">Password</label>
+          </div>
+          <div class="remember-forgot">
+            <label><input type="checkbox" />Remember me</label>
+            <a href="#">Forgot Password</a>
+          </div>
+          <button type="submit" class="btn">Login</button>
+          <div class="login-register">
+            <p>
+              Don't have an account?
+              <a href="#" class="register-link">Register</a>
+            </p>
+          </div>
+        </form>
+      </div>
+      <!---Registration form--->
+      <div class="form-box register">
+        <h2>Registration</h2>
+        <form action="/user/registration" method="POST">
+          <div class="input-box">
+            <span class="icon"><i class="fas fa-user"></i></span>
+            <input type="name" required id="name" name="name" />
+            <label for="name">Username</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="fas fa-envelope"></i></span>
+            <input type="email" required id="email" name="email" />
+            <label for="email">Email</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="fas fa-lock"></i></span>
+            <input type="password" required id="password" name="password" />
+            <label for="password">Password</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="fas fa-user-lock"></i></span>
+            <input type="role" required id="role" name="role" />
+            <label for="role">Role</label>
+          </div>
+          <div class="remember-forgot">
+            <label
+              ><input type="checkbox" />I agree to the terms & condition</label
+            >
+          </div>
+          <button type="submit" class="btn">Register</button>
+          <div class="login-register">
+            <p>
+              already have a account ? <a href="#" class="login-link">Login</a>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/script.js"></script>
   </body>
 </html>

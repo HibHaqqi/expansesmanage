@@ -1,10 +1,12 @@
 const express = require("express");
 const router = require("./routers/routers");
 const ejs = require("ejs");
+const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 const port = 3000;
 
+app.use(expressLayouts);
 app.use(express.json());
 app.use(express.urlencoded({
     extended:false
