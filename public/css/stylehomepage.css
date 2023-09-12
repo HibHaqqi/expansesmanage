@@ -97,18 +97,46 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*overflow: hidden;*/
-
+    overflow: hidden;
+    transition: tranform .5s ease, height .2s ease;
+    transform: scale(0);
+}
+/*link to script to show pop up login/register*/
+.wrapper.active-popup{
+    transform: scale(1);
 }
 
+.wrapper.active{
+    height: 560px;
+}
 .wrapper .form-box {
     width: 100%;
     padding: 40px;
 
 }
-.wrapper .form-box.login{
-    display: none;
+/*modal active non active link with script.js*/
+.wrapper.active .form-box.login{
+    transition: none;
+    transform: translateX(-400px);
 }
+
+.wrapper .form-box.login{
+    transition: tranform .18s ease;
+    transform: translateX(0);
+}
+
+
+.wrapper .form-box.register{
+    position: absolute;
+    transition: none;
+    transform: translateX(400px);
+}
+.wrapper.active .form-box.register{
+    transition: tranform .18s ease;
+    transform: translateX(0);
+}
+
+
 .wrapper .icon-close {
     position: absolute;
     top: 0;
