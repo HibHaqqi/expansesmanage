@@ -5,7 +5,7 @@ const pages = express.Router();
 
 
 pages.get('/',(req,res)=>{
-    res.render('home');
+    res.render('homepage');
 });
 
 pages.get('/regis',(req,res)=>{
