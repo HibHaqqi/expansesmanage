@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 //add users login
-login.get('/login', async (req, res) => {
+login.post('/login', async (req, res) => {
     try {
       //menerima email dan password dari body request
       const { email, password } = req.body;
@@ -37,7 +37,7 @@ login.get('/login', async (req, res) => {
       const token = jwt.sign(payload, secret, options);
   
       //mengirim response dengan token JWT
-      res.status(200).json({ message: 'Login berhasil' });
+      //res.status(200).json({ message: 'Login berhasil' });
       res.render('dashboardcss');
     } catch (error) {
       //tangani error
