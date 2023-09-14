@@ -1,4 +1,5 @@
 const express =require("express");
+const { isAuthenticated } = require("../service/login");
 const pages = express.Router();
 
 
@@ -15,7 +16,7 @@ pages.get('/login',(req,res)=>{
     res.render('login');
 });
 
-pages.get('/dashboard',(req,res)=>{
+pages.get('/dashboard',isAuthenticated,(req,res)=>{
     res.render('dashboardcss');
 });
 
