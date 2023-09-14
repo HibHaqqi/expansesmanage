@@ -1,6 +1,8 @@
 const express = require("express");
 const router = require("./routers/routers");
 const ejs = require("ejs");
+const dotenv = require("dotenv");
+dotenv.config()
 
 
 const app = express();

@@ -68,23 +68,17 @@ class LoginValidator {
 
     static async isAuthenticated(req, res, next) {
       // ambil token dari header
-      const token = req.header('x-auth-token');
-    
-      // cek jika tidak ada token
-      if (!token) {
-        return res.status(401).json({ msg: 'No token, authorization denied' });
-      }
-    
-      // verifikasi token
-      try {
-        const decoded = jwt.verify(token, 'your-jwt-secret');
-        
-        // simpan user dari payload
-        req.user = decoded.user;
-        next();
-      } catch (err) {
-        res.status(401).json({ msg: 'Token is not valid' });
-      }
+      const authHeader = req.header('authorization');
+      const token = authHeader &&authHeader.split('')[1];
+
+      if(token=null ) return res.sendStatus(401);
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error,decoded)=>{
+        if(error) return res.sendStatus(401);
+        req.email = decoded.email;
+        next()
+      })
+      
+      
     };
 
     
