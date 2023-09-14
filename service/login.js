@@ -71,7 +71,7 @@ class LoginValidator {
       const authHeader = req.header('authorization');
       const token = authHeader &&authHeader.split('')[1];
 
-      if(token=null ) return res.sendStatus(401);
+      if(token==null ) return res.sendStatus(401);
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error,decoded)=>{
         if(error) return res.sendStatus(401);
         req.email = decoded.email;

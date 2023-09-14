@@ -16,17 +16,17 @@ pages.get('/login',(req,res)=>{
     res.render('login');
 });
 
-pages.get('/dashboard',isAuthenticated,(req,res)=>{
+pages.get('/dashboard',/*isAuthenticated,*/(req,res)=>{
     res.render('dashboardcss');
 });
 
-pages.get('/dashboard/expanse',(req,res)=>{
-    res.render('dashboard.expanses');
+pages.get('/dashboard/expanse',/*isAuthenticated,*/(req,res)=>{
+    res.render('dashboardexpanse');
 });
 
 
-pages.get('/dashboard/income',(req,res)=>{
-    res.render('dashboard.income');
+pages.get('/dashboard/income'/*isAuthenticated,*/,(req,res)=>{
+    res.render('dashboardincome');
 });
 
 
