@@ -16,7 +16,7 @@ pages.get('/login',(req,res)=>{
     res.render('login');
 });
 
-pages.get('/dashboard',/*isAuthenticated,*/(req,res)=>{
+pages.get('/dashboard',isAuthenticated,(req,res)=>{
     res.render('dashboardcss');
 });
 

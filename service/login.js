@@ -68,18 +68,43 @@ class LoginValidator {
 
     static async isAuthenticated(req, res, next) {
       // ambil token dari header
-      const authHeader = req.header('authorization');
-      const token = authHeader &&authHeader.split('')[1];
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split('')[1];
 
-      if(token==null ) return res.sendStatus(401);
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error,decoded)=>{
-        if(error) return res.sendStatus(401);
+      if(token == null ) return res.sendStatus(401);
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded)=>{
+        if(error) return res.sendStatus(403);
         req.email = decoded.email;
-        next()
+        next();
       })
       
       
     };
+
+    static async refreshToken(req,res) {
+      try {
+        const refreshToken = req.cookie.refreshToken;
+        if(!refreshToken) return res.sendStatus(401);
+        const user = await User.findAll({
+          where: {
+            refresh_token : refreshToken 
+          }
+        })
+        if(!user[0]) return res.sendStatus(403);
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, decoded)=>{
+          if(error) return res.sendStatus(403)
+          const userId = user[0].id;
+          const name = user[0].id;
+          const email = user[0].id;
+          const accessToken =  jwt.sign({userId,name,email},process.env.ACCESS_TOKEN_SECRET,{
+            expiresIn: '15s'
+          })
+          res.sendStatus({accessToken});
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     
   }

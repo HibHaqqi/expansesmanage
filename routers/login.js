@@ -15,10 +15,10 @@ const LoginValidator = require("../service/login");
 login.post('/login', LoginValidator.validateLogin, async (req, res) => {
   try {
     
-    const {email, password} = req.body
-    const accessToken = jwt.sign({email, password}, process.env.ACCESS_TOKEN_SECRET,{expiresIn: "1h"} );
-    const refreshToken = jwt.sign({ email, password}, process.env.REFRESH_TOKEN_SECRET,{expiresIn: "7d"} );
-    const userpdate = await User.update({refresh_Token:refreshToken},{
+    const {name, email, password} = req.body
+    const accessToken = jwt.sign({email, name}, process.env.ACCESS_TOKEN_SECRET,{expiresIn: "120s"} );
+    const refreshToken = jwt.sign({ email, name }, process.env.REFRESH_TOKEN_SECRET,{expiresIn: "1d"} );
+    const userpdate = await User.update({refresh_token:refreshToken},{
       where:{
         email: email
       }
@@ -26,12 +26,12 @@ login.post('/login', LoginValidator.validateLogin, async (req, res) => {
     //res.status(200).json({message: "Token berhasil diupdate",userpdate})
     res.cookie('refreshToken', refreshToken, { 
       httpOnly: true,
-      maxAge:7*24*60*60*1000
+      maxAge:1*24*60*60*1000
     });
-    //res.json({accessToken});
+    res.json({accessToken});
 
     //res.status(200).json({message: 'user berhasil login', token})
-    res.render('dashboardcss');
+    //res.render('dashboardcss');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Terjadi kesalahan' });
