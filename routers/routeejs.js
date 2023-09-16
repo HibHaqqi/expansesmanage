@@ -16,12 +16,12 @@ pages.get('/login',(req,res)=>{
     res.render('login');
 });
 
-pages.get('/dashboard',isAuthenticated,(req,res)=>{
-    res.render('dashboardcss');
+pages.get('/dashboard',/*isAuthenticated,*/(req,res)=>{
+    res.render('dashboard');
 });
 
 pages.get('/dashboard/expanse',/*isAuthenticated,*/(req,res)=>{
-    res.render('dashboardexpanse');
+    res.render('dashboardcss');
 });
 
 

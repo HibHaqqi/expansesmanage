@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const {User} =require("../models");
 const jwt = require('jsonwebtoken');
+const { error } = require('toastr');
 class LoginValidator {
     static async validateLogin(req, res, next) {
       try {
@@ -70,14 +71,23 @@ class LoginValidator {
       // ambil token dari header
       const authHeader = req.headers['authorization'];
       const token = authHeader && authHeader.split('')[1];
-
+      
       if(token == null ) return res.sendStatus(401);
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded)=>{
         if(error) return res.sendStatus(403);
         req.email = decoded.email;
         next();
       })
-      
+      /*const bearer = req.headers['authorization'];
+      jwt.verify(bearer, 'secret',(error,data)=>{
+        if(error){
+          console.log(error.message);
+          res.json(error);
+          return
+        }
+        req.body=data
+        next()
+      })*/
       
     };
 
