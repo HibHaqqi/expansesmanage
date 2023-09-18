@@ -21,11 +21,12 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <div class="containers">
+    <div class="container-fluid">
+      <div class="row">
       <%- include('layouts/navbar'); %> 
-      
-      <%- include('layouts/sidebar'); %>
-      
+      <div class="px-0">
+      <%- include('layouts/sidebar'); %></div>
+    </div>
       <div class="main">
         <div class="container mt-4">
           <div class="row">

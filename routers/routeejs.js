@@ -21,7 +21,7 @@ pages.get('/dashboard',/*isAuthenticated,*/(req,res)=>{
 });
 
 pages.get('/dashboard/expanse',/*isAuthenticated,*/(req,res)=>{
-    res.render('dashboardcss');
+    res.render('dashboardexpanses');
 });
 
 

@@ -74,11 +74,12 @@
     height: calc(100% - 50px);
     background: #299b63;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .sidebar ul {
-    margin-top: 20px;
-
+    margin-top: 30px;
+    margin-left: -40px;
 }
 
 .sidebar ul li {
