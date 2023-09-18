@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="" method="POST">
+      <div
+        class="modal fade"
+        id="expansesadd"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Add Transaction Expanses
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-floating">
+                <div class="col-md mb-3">
+                  <div class="form-floating">
+                    <select
+                      class="form-select"
+                      id="floatingSelectGrid"
+                      aria-label="Floating label select example"
+                    >
+
+                      <option value="1">Food & Beverage</option>
+                      <option value="2">Transport</option>
+                      <option value="3">Entertain</option>
+                    </select>
+                    <label for="floatingSelectGrid">Category Expanse</label>
+                  </div>
+                </div>
+                <div class="form-floating">
+                  <input
+                    type="amount"
+                    class="form-control"
+                    id="floatingAmount"
+                    placeholder="45000"
+                  />
+                  <label for="floatingAmount">Amount Transaction</label>
+                </div>
+                <div class="form-floating mt-3  ">
+                    <input
+                      type="wallet"
+                      class="form-control"
+                      id="floatingWallet"
+                      placeholder="Mandiri"
+                    />
+                    <label for="floatingWallet">Wallet</label>
+                  </div>
+                <div class="form-floating mt-3">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="floatingAmount"
+                    placeholder="DD-MM-YYYY"
+                    value=""
+                    min="2010-01-01"
+                    max="2025-12-31"
+                  />
+                  <label for="floatingAmount">Date Transaction</label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
