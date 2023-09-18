@@ -42,10 +42,9 @@
                       id="floatingSelectGrid"
                       aria-label="Floating label select example"
                     >
-
-                      <option value="1">Food & Beverage</option>
-                      <option value="2">Transport</option>
-                      <option value="3">Entertain</option>
+                    <% expanse.forEach(function(expanse){ %>
+                        <option value="<%= expanse.category %>"><%= expanse.category %></option>
+                        <% }); %>
                     </select>
                     <label for="floatingSelectGrid">Category Expanse</label>
                   </div>

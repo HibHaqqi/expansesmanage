@@ -1,6 +1,7 @@
 const express =require("express");
 const { isAuthenticated } = require("../service/login");
 const pages = express.Router();
+const {Expanses,Income} =require("../models");
 
 
 
@@ -20,8 +21,10 @@ pages.get('/dashboard',/*isAuthenticated,*/(req,res)=>{
     res.render('dashboard');
 });
 
-pages.get('/dashboard/expanse',/*isAuthenticated,*/(req,res)=>{
-    res.render('dashboardexpanses');
+pages.get('/dashboard/expanse',/*isAuthenticated,*/ async (req,res)=>{
+    const expanse = await Expanses.findAll();
+    res.render('dashboardexpanses',{expanse});
+    
 });
 
 

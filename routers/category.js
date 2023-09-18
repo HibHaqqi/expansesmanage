@@ -10,7 +10,9 @@ category.get('/v1/category',async (req,res)=>{
              res.status(200).json({
                 status : "success",
                 data : expanse
+                
         })   
+        res.render('dashboardexpanses',{expanse})
         } catch (error) {
            res.status(400).json({
                 status: "failed",
