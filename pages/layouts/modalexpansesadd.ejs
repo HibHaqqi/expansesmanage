@@ -42,9 +42,11 @@
                       id="floatingSelectGrid"
                       aria-label="Floating label select example"
                     >
-                    <% expanse.forEach(function(expanse){ %>
-                        <option value="<%= expanse.category %>"><%= expanse.category %></option>
-                        <% }); %>
+                      <% expanse.forEach(function(expanse){ %>
+                      <option value="<%= expanse.id %>">
+                        <%= expanse.category %>
+                      </option>
+                      <% }); %>
                     </select>
                     <label for="floatingSelectGrid">Category Expanse</label>
                   </div>
@@ -58,15 +60,20 @@
                   />
                   <label for="floatingAmount">Amount Transaction</label>
                 </div>
-                <div class="form-floating mt-3  ">
-                    <input
-                      type="wallet"
-                      class="form-control"
-                      id="floatingWallet"
-                      placeholder="Mandiri"
-                    />
-                    <label for="floatingWallet">Wallet</label>
-                  </div>
+                <div class="form-floating mt-3">
+                  <select
+                    class="form-select"
+                    id="floatingSelectGrid"
+                    aria-label="Floating label select example"
+                  >
+                    <% expanse.forEach(function(expanse){ %>
+                    <option value="<%= expanse.id %>">
+                      <%= expanse.category %>
+                    </option>
+                    <% }); %>
+                  </select>
+                  <label for="floatingSelectGrid">Wallet</label>
+                </div>
                 <div class="form-floating mt-3">
                   <input
                     type="date"
