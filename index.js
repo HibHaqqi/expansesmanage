@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config()
 const flash = require('connect-flash');
 const session = require('express-session');
-
+const passports = require('./libs/passport');
 
 const app = express();
 const port = 3000;
@@ -20,12 +20,13 @@ app.use(session({ secret: 'yoursecret', resave: true,  saveUninitialized: true }
 
 // Connect flash
 app.use(flash());
-
 app.use(express.static('public'))
 
 app.set('view engine', 'ejs')
 app.set('views', "./pages")
 
+app.use(passports.initialize());    
+app.use(passports.session());
 
 
 app.use("/",router);
