@@ -3,6 +3,8 @@ const router = require("./routers/routers");
 const ejs = require("ejs");
 const dotenv = require("dotenv");
 dotenv.config()
+const flash = require('connect-flash');
+const session = require('express-session');
 
 
 const app = express();
@@ -13,7 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended:false
 }));
+// Express sessions
+app.use(session({ secret: 'yoursecret', resave: true,  saveUninitialized: true }));
 
+// Connect flash
+app.use(flash());
 
 app.use(express.static('public'))
 

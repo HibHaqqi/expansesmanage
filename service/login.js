@@ -1,84 +1,96 @@
-const bcrypt = require('bcrypt');
-const {User} =require("../models");
-const jwt = require('jsonwebtoken');
-const { error } = require('toastr');
+const bcrypt = require("bcrypt");
+const { User } = require("../models");
+const jwt = require("jsonwebtoken");
+
 class LoginValidator {
-    static async validateLogin(req, res, next) {
-      try {
-        const { email, password } = req.body;
-    
-        if (!email || !password) {
-          return res.status(400).json({ message: 'Data tidak lengkap' });
-        }
-    
-        const user = await User.findOne({ where: { email } });
-        if (!user) {
-          return res.status(404).json({ message: 'User tidak ditemukan' });
-        }
-    
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-          return res.status(401).json({ message: 'Password salah' });
-        }
+  static async validateLogin(req, res, next) {
+    try {
+      const { email, password } = req.body;
+     
+      if (!email || !password) {
+        return res.status(400).json({ message: 'Data tidak lengkap' });
+        //errors.push({ message: "Data tidak lengkap" });
         
-        req.user = user;
-        next();
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Terjadi kesalahan' });
       }
-    }
 
-    static async registration(req,res,next){
-      try {
-        //menerima data dari body request
-        const { name, email, password, role } = req.body;
-    
-        //validasi data
-        if (!name || !email || !password || !role) {
-          return res.status(400).json({ message: 'Data tidak lengkap' });
-        }
-    
-        //cek apakah email sudah terdaftar
-        const user = await User.findOne({ where: { email } });
-        if (user) {
-          return res.status(409).json({ message: 'Email sudah terdaftar' });
-        }
-    
-        //hash password menggunakan bcrypt
-        
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-    
-        //buat user baru di database
-        const newUser = await User.create({
-          name,
-          email,
-          password: hashedPassword,
-          role,
-        });
-    
-        //kirim response dengan data user baru
-        res.status(201).json({ message: 'User berhasil dibuat', data: newUser });
-      } catch (error) {
-        //tangani error
-        console.error(error);
-        res.status(500).json({ message: 'Terjadi kesalahan' });
+      const user = await User.findOne({ where: { email } });
+      if (!user) {
+        return res.status(404).json({ message: 'User tidak ditemukan' });
+        //errors.push({ message: "User tidak ditemukan" });
+
       }
-    }
 
-    static async isAuthenticated(req, res, next) {
-      // ambil token dari header
-      const authHeader = req.headers['authorization'];
-      const token = authHeader && authHeader.split('')[1];
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: 'Password salah' }); 
+        //errors.push({ message: "Password salah" });
+      }
       
-      if(token == null ) return res.sendStatus(401);
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded)=>{
-        if(error) return res.sendStatus(403);
-        req.email = decoded.email;
-        next();
-      })
-      /*const bearer = req.headers['authorization'];
+      req.user = user;
+      next();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Terjadi kesalahan" });
+    }
+  }
+
+  static async registration(req, res, next) {
+    try {
+      //menerima data dari body request
+      const { name, email, password, role } = req.body;
+      let error = [];
+      //validasi data
+      if (!name || !email || !password || !role) {
+        return res.status(400).json({ message: 'Data tidak lengkap' });
+        //error.push({ message: "Data tidak lengkap" });
+        
+      }
+
+      //cek apakah email sudah terdaftar
+      const user = await User.findOne({ where: { email } });
+      if (user) {
+        return res.status(409).json({ message: 'Email sudah terdaftar' });
+        //error.push({ message: "Email sudah terdaftar" });
+        
+      }
+
+      //hash password menggunakan bcrypt
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      //buat user baru di database
+      const newUser = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        role,
+      });
+
+      //kirim response dengan data user baru
+      //req.flash("success_msg", "Successfully registered. Login");
+      //res.redirect("homepage");
+
+      res.status(201).json({ message: "User berhasil dibuat", data: newUser });
+    } catch (error) {
+      //tangani error
+      console.error(error);
+      res.status(500).json({ message: "Terjadi kesalahan" });
+    }
+  }
+
+  static async isAuthenticated(req, res, next) {
+    // ambil token dari header
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split("")[1];
+
+    if (token == null) return res.sendStatus(401);
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
+      if (error) return res.sendStatus(403);
+      req.email = decoded.email;
+      next();
+    });
+    /*const bearer = req.headers['authorization'];
       jwt.verify(bearer, 'secret',(error,data)=>{
         if(error){
           console.log(error.message);
@@ -88,35 +100,40 @@ class LoginValidator {
         req.body=data
         next()
       })*/
-      
-    };
+  }
 
-    static async refreshToken(req,res) {
-      try {
-        const refreshToken = req.cookie.refreshToken;
-        if(!refreshToken) return res.sendStatus(401);
-        const user = await User.findAll({
-          where: {
-            refresh_token : refreshToken 
-          }
-        })
-        if(!user[0]) return res.sendStatus(403);
-        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, decoded)=>{
-          if(error) return res.sendStatus(403)
+  static async refreshToken(req, res) {
+    try {
+      const refreshToken = req.cookie.refreshToken;
+      if (!refreshToken) return res.sendStatus(401);
+      const user = await User.findAll({
+        where: {
+          refresh_token: refreshToken,
+        },
+      });
+      if (!user[0]) return res.sendStatus(403);
+      jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        (error, decoded) => {
+          if (error) return res.sendStatus(403);
           const userId = user[0].id;
           const name = user[0].id;
           const email = user[0].id;
-          const accessToken =  jwt.sign({userId,name,email},process.env.ACCESS_TOKEN_SECRET,{
-            expiresIn: '15s'
-          })
-          res.sendStatus({accessToken});
-        })
-      } catch (error) {
-        console.log(error);
-      }
+          const accessToken = jwt.sign(
+            { userId, name, email },
+            process.env.ACCESS_TOKEN_SECRET,
+            {
+              expiresIn: "15s",
+            }
+          );
+          res.sendStatus({ accessToken });
+        }
+      );
+    } catch (error) {
+      console.log(error);
     }
-
-    
   }
+}
 
-  module.exports = LoginValidator;
+module.exports = LoginValidator;
