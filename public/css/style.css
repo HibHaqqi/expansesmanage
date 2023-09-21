@@ -56,13 +56,20 @@
 
 }
 
-.user img {
+.user  img {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 10px;
     height: 100%;
     width: 100%;
 }
+
+.fa-sign-out-alt{
+    color: #299b63;
+
+
+}
+
 
 /* side bar menu */
 
@@ -253,7 +260,7 @@
         padding: 0 20px;
     }
 
-    .fa-bell {
+    .fa-sign-out-alt {
         margin-right: 5px;
     }
 

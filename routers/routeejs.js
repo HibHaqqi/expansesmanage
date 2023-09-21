@@ -41,4 +41,16 @@ pages.get('/profile',(req,res)=>{
     res.render('profile');
 });
 
+pages.get('/logout',(req,res) =>{
+    req.logout((err) => {
+        if (err) {
+            // handle the error
+            console.log(err);
+            return res.status(500).json({error: 'Error logging out'});
+        }
+        req.flash('success_msg', 'You are logged out');
+        res.redirect('/');
+    });
+})
+
 module.exports = pages;

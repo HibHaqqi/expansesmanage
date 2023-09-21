@@ -20,7 +20,7 @@ app.use(session({ secret: 'yoursecret', resave: true,  saveUninitialized: true }
 
 // Connect flash
 app.use(flash());
-app.use(express.static('public'))
+app.use('/',express.static('public'))
 
 app.set('view engine', 'ejs')
 app.set('views', "./pages")
