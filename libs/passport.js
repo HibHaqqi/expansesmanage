@@ -34,10 +34,14 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findByPk(id, (error, user) => {
-    done(error, user);
+    User.findByPk(id)
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((error) => {
+        done(error, null);
+      });
   });
-});
 
 
 module.exports = passport;

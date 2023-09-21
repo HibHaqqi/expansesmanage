@@ -21,7 +21,7 @@ pages.get('/dashboard',isAuthenticated,(req,res)=>{
     res.render('dashboard');
 });
 
-pages.get('/dashboard/expanse',/*isAuthenticated,*/ async (req,res)=>{
+pages.get('/dashboard/expanse', isAuthenticated, async (req,res)=>{
     const expanse = await Expanses.findAll();
     res.render('dashboardexpanses',{expanse});
     
