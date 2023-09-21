@@ -84,7 +84,7 @@ class LoginValidator {
       return next();
     } else {
       // Redirect to login page or send an error message
-      res.render("homepage");
+      res.redirect("/");
     }
   }
 }
