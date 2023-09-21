@@ -7,7 +7,7 @@ const {Expanses,Income} =require("../models");
 
 
 pages.get('/',(req,res)=>{
-    res.render('homepage');
+    res.render('homepage',{ messages: req.flash() });
 });
 
 pages.get('/regis',(req,res)=>{

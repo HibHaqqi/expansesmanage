@@ -32,6 +32,7 @@
       <div class="form-box login">
         <h2>Login</h2>
         
+        
         <form action="/user/login" method="POST">
           <div class="input-box">
             <span class="icon"><i class="fas fa-envelope"></i></span>
@@ -54,6 +55,7 @@
               <a href="#" class="register-link">Register</a>
             </p>
           </div>
+          <%- include('layouts/message'); %>
         </form>
       </div>
       <!---Registration form--->
@@ -94,6 +96,7 @@
         </form>
       </div>
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/script.js"></script>
   </body>

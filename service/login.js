@@ -6,26 +6,28 @@ class LoginValidator {
   static async validateLogin(req, res, next) {
     try {
       const { email, password } = req.body;
-     
+
       if (!email || !password) {
-        return res.status(400).json({ message: 'Data tidak lengkap' });
-        //errors.push({ message: "Data tidak lengkap" });
-        
+        req.flash("error", "Data tidak lengkap");
+        return res.redirect("/");
+
+        //res.status(400).json({ message: 'Data tidak lengkap' });
       }
 
       const user = await User.findOne({ where: { email } });
       if (!user) {
-        return res.status(404).json({ message: 'User tidak ditemukan' });
-        //errors.push({ message: "User tidak ditemukan" });
+        req.flash("error", "User tidak ditemukan");
 
+        return res.redirect("/");
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(401).json({ message: 'Password salah' }); 
-        //errors.push({ message: "Password salah" });
+        req.flash("error", "Password tidak sesuai");
+        return res.redirect("/");
+        //res.status(401).json({ message: 'Password salah' });
       }
-      
+
       req.user = user;
       next();
     } catch (error) {
@@ -41,17 +43,15 @@ class LoginValidator {
       let error = [];
       //validasi data
       if (!name || !email || !password || !role) {
-        return res.status(400).json({ message: 'Data tidak lengkap' });
+        return res.status(400).json({ message: "Data tidak lengkap" });
         //error.push({ message: "Data tidak lengkap" });
-        
       }
 
       //cek apakah email sudah terdaftar
       const user = await User.findOne({ where: { email } });
       if (user) {
-        return res.status(409).json({ message: 'Email sudah terdaftar' });
+        return res.status(409).json({ message: "Email sudah terdaftar" });
         //error.push({ message: "Email sudah terdaftar" });
-        
       }
 
       //hash password menggunakan bcrypt
@@ -84,12 +84,9 @@ class LoginValidator {
       return next();
     } else {
       // Redirect to login page or send an error message
-      res.render('homepage');
+      res.render("homepage");
     }
-  } 
   }
-
-  
-
+}
 
 module.exports = LoginValidator;
