@@ -3,15 +3,17 @@ const transaction = express.Router();
 const { ExpansesTransaction, sequelize } = require("../models");
 
 const Transaction = require("../service/transaction");
+const LoginValidator = require("../service/login");
 
 //total expanses filter by month to chart dashboard
 transaction.get("/v1/expenses/bymonth", async (req, res) => {
-  //total expanses filter by month to chart dashboard 
+  //total expanses filter by month to chart dashboard
   try {
-    const bodyJson = req.body;
+    const session = req.session;
+    const user_id = session.passport.user;
     const transactionService = new Transaction();
     const transactionByMonth = await transactionService.transactionByMonth(
-      bodyJson
+      user_id
     );
 
     res.status(200).json({
@@ -27,15 +29,14 @@ transaction.get("/v1/expenses/bymonth", async (req, res) => {
   }
 });
 
-  //total expanses filter by month and category to chart dashboard 
+//total expanses filter by month and category to chart dashboard
 transaction.get("/v1/expenses/bycategory", async (req, res) => {
-  //total expanses filter by month and category to chart dashboard 
+  //total expanses filter by month and category to chart dashboard
   try {
     const bodyJson = req.body;
     const transactionService = new Transaction();
-    const transactionByMonthCategory = await transactionService.transactionByMonthCategory(
-      bodyJson
-    );
+    const transactionByMonthCategory =
+      await transactionService.transactionByMonthCategory(bodyJson);
 
     res.status(200).json({
       status: "success",
@@ -71,42 +72,72 @@ transaction.get("/v1/expenses", async (req, res) => {
   //total expanses filter by category to stacked chart dashboard
 });
 
-transaction.post("/v1/expenses", async (req, res) => {
-  //post transaction on page expanses to post transaction
-  const {
-    user_id,
-    wallet_id,
-    expanses_id,
-    amount,
-    date_transaction,
-    description,
-  } = req.body;
-  try {
-    const expanseTrans = await ExpansesTransaction.create({
-      user_id,
+transaction.post(
+  "/v1/expenses",
+  LoginValidator.isAuthenticated,
+  async (req, res) => {
+    //post transaction on page expanses to post transaction
+    const session = req.session;
+    const user_id = session.passport.user;
+    const {
+      
       wallet_id,
       expanses_id,
       amount,
       date_transaction,
       description,
-    });
-    res.status(200).json({
-      status: "Success",
-      data: expanseTrans,
-      message: "Transaction Berhasil di post",
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: "failed",
-      data: "req.body",
-      message: error.message,
-      stack: error,
-    });
+    } = req.body;
+
+    try {
+      const expanseTrans = await ExpansesTransaction.create({
+        user_id,
+        wallet_id,
+        expanses_id,
+        amount,
+        date_transaction,
+        description,
+      });
+      res.status(200).json({
+        status: "Success",
+        data: expanseTrans,
+        message: "Transaction Berhasil di post",
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: "failed",
+        data: "req.body",
+        message: error.message,
+        stack: error,
+      });
+    }
   }
-});
-//transaction.get('/v1/expenses',async (req,res)=>{
-//get transaction on page expanses to show top expanses by transaction
-//})
+);
+
+transaction.get(
+  "/v1/expensesbyid",
+  LoginValidator.isAuthenticated,
+  
+  async (req, res) => {
+    //get transaction on page expanses to show top expanses by transaction
+    try {
+      const session = req.session;
+      const user_id = session.passport.user;
+      const transactions = await ExpansesTransaction.findAll({
+        where: { user_id: user_id },
+        limit: 5,
+        order: [["date_transaction", "DESC"]],
+      });
+      res.status(200).json({data: transactions});
+    } catch (error) {
+      res.status(400).json({
+        status: "failed",
+
+        message: error.message,
+        stack: error,
+      });
+    }
+  }
+);
 
 //add income transaction
 //transaction.get('/v1/transaction/income',async (req,res)=>{
