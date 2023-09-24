@@ -34,7 +34,7 @@ pages.get('/dashboard/income'/*isAuthenticated,*/,(req,res)=>{
 
 
 pages.get('/dashboard/wallet',(req,res)=>{
-    res.render('dashboard.wallet');
+    res.render('dashboardwallet');
 });
 
 pages.get('/profile',(req,res)=>{

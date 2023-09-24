@@ -3,6 +3,10 @@ const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 
 class LoginValidator {
+  constructor() {
+    this.User = new User;
+
+  }
   static async validateLogin(req, res, next) {
     try {
       const { email, password } = req.body;
