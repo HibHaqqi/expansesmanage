@@ -1,6 +1,5 @@
 const { ExpansesTransaction, Expanses, sequelize } = require("../models");
 const Sequelize = require("sequelize");
-const category = require("../routers/category");
 
 class Transaction {
   constructor() {

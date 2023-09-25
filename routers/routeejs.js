@@ -4,6 +4,7 @@ const { isAuthenticated } = require("../service/login");
 const pages = express.Router();
 const { Expanses, Income } = require("../models");
 const Transaction = require("../service/transaction");
+const Wallets = require("../service/wallet");
 
 pages.get("/", (req, res) => {
   res.render("homepage", { messages: req.flash() });
@@ -25,8 +26,10 @@ pages.get("/dashboard/expanse", isAuthenticated, async (req, res) => {
   const transactionService = new Transaction();
   const recentTransactionByUserId =
     await transactionService.recentTransactionByUserId(user_id);
+  const walletService = new Wallets();
+  const getWalletByUserId = await walletService.getWalletByUserId(user_id);
   const expanse = await Expanses.findAll();
-  res.render("dashboardexpanses", { recentTransactionByUserId, expanse });
+  res.render("dashboardexpanses", { recentTransactionByUserId, expanse,getWalletByUserId });
 });
 
 pages.get("/dashboard/income" /*isAuthenticated,*/, (req, res) => {
