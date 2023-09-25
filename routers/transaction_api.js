@@ -122,12 +122,11 @@ transaction.get(
     try {
       const session = req.session;
       const user_id = session.passport.user;
-      const transactions = await ExpansesTransaction.findAll({
-        where: { user_id: user_id },
-        limit: 5,
-        order: [["date_transaction", "DESC"]],
-      });
-      res.status(200).json({data: transactions});
+      const transactionService = new Transaction();
+      const recentTransactionByUserId = await transactionService.recentTransactionByUserId(
+        user_id
+      );
+      res.json(recentTransactionByUserId)
     } catch (error) {
       res.status(400).json({
         status: "failed",
@@ -149,3 +148,4 @@ transaction.get(
 //})
 
 module.exports = transaction;
+

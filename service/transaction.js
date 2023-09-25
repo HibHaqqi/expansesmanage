@@ -1,5 +1,6 @@
-const { ExpansesTransaction, sequelize } = require("../models");
+const { ExpansesTransaction, Expanses, sequelize } = require("../models");
 const Sequelize = require("sequelize");
+const category = require("../routers/category");
 
 class Transaction {
   constructor() {
@@ -14,8 +15,7 @@ class Transaction {
                 WHERE user_id = :userId
                 GROUP BY month
                 ORDER BY month;`,
-      { replacements: { userId: userId },
-        type: Sequelize.QueryTypes.SELECT }
+      { replacements: { userId: userId }, type: Sequelize.QueryTypes.SELECT }
     );
     return result;
   }
@@ -31,7 +31,22 @@ class Transaction {
     );
     return result;
   }
-  
+
+  async recentTransactionByUserId(userId, res) {
+    const transactions = await ExpansesTransaction.findAll({
+      where: { user_id: userId },
+      limit: 5,
+      order: [["date_transaction", "DESC"]],
+      include: { model: Expanses, attribute: ['category'] },
+    });
+    
+    const reformatdata = transactions.map((expansesTransaction) => ({
+      expanses_id: expansesTransaction.Expanse.category,
+      amaout: expansesTransaction.amount,
+      date_transaction: expansesTransaction.date_transaction,
+    }));
+    return reformatdata;
+  }
 }
 
 module.exports = Transaction;
