@@ -12,7 +12,7 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="" method="POST">
+    <form action="/transaction/v1/expenses" method="POST">
       <div
         class="modal fade"
         id="expansesadd"
@@ -41,6 +41,7 @@
                       class="form-select"
                       id="floatingSelectGrid"
                       aria-label="Floating label select example"
+                      name="expanses_id"
                     >
                       <% expanse.forEach(function(expanse){ %>
                       <option value="<%= expanse.id %>">
@@ -57,6 +58,7 @@
                     class="form-control"
                     id="floatingAmount"
                     placeholder="45000"
+                    name="amount"
                   />
                   <label for="floatingAmount">Amount Transaction</label>
                 </div>
@@ -65,6 +67,7 @@
                     class="form-select"
                     id="floatingSelectGrid"
                     aria-label="Floating label select example"
+                    name="wallet_id"
                   >
                     <% getWalletByUserId.forEach(function(getWalletByUserId){ %>
                     <option value="<%= getWalletByUserId.id %>">
@@ -83,6 +86,7 @@
                     value=""
                     min="2010-01-01"
                     max="2025-12-31"
+                    name="date_transaction"
                   />
                   <label for="floatingAmount">Date Transaction</label>
                 </div>
@@ -96,7 +100,7 @@
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </div>

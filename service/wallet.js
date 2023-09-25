@@ -5,7 +5,7 @@ class Wallets{
     async getWalletByUserId(userId){
         const wallet = await Wallet.findAll({
             where: { user_id: userId },
-            attributes: ["category"]
+            attributes: ["id","category"]
         })
         return wallet
     }
