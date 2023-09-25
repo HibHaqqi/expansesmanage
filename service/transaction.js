@@ -37,16 +37,26 @@ class Transaction {
       where: { user_id: userId },
       limit: 5,
       order: [["date_transaction", "DESC"]],
+      attributes: ["amount", "date_transaction"],
       include: { model: Expanses, attribute: ['category'] },
     });
     
-    const reformatdata = transactions.map((expansesTransaction) => ({
-      expanses_id: expansesTransaction.Expanse.category,
-      amaout: expansesTransaction.amount,
-      date_transaction: expansesTransaction.date_transaction,
-    }));
-    return reformatdata;
+    const formattedTransactions = transactions.map((transaction) => {
+      const formattedDate = new Intl.DateTimeFormat("en-US", {
+        day: "2-digit",
+        month: "short",
+        year: "2-digit",
+      }).format(transaction.date_transaction);
+    
+      return {
+        expanses_id: transaction.Expanse.category,
+        amount: transaction.amount,
+        date_transaction: formattedDate,
+      };
+    });
+    return formattedTransactions;
   }
+  
 }
 
 module.exports = Transaction;

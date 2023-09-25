@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table class="table table-striped px-2">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recentTransactionByUserId.forEach(transaction => { %>
+        <tr>
+          <td><%= transaction.date_transaction %></td>
+          <td><%= transaction.expanses_id %></td>
+          <td><%= transaction.amount %></td>
+          <td>
+            <button class="btn btn-primary">Edit</button>
+            <button class="btn btn-primary">Delete</button>
+          </td>
+        </tr>
+        <% }); %>
+
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -38,41 +38,18 @@
             <div class="card row-sm-6 mt-2">
               <div class="d-flex justify-content-between px-2 mt-2">
                 <h2 class="">Recent Expenses</h2>
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#expansesadd">Input Transaction</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#expansesadd"
+                >
+                  Input Transaction
+                </button>
               </div>
               <%- include('layouts/modalexpansesadd'); %>
               <!-- Insert your table here -->
-              <table class="table table-striped px-2">
-                <thead>
-                  <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2023-09-16</td>
-                    <td>Food</td>
-                    <td>$10</td>
-                    <td>
-                      <button class="btn btn-primary">Edit</button>
-                      <button class="btn btn-primary">Delete</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2023-09-16</td>
-                    <td>Food</td>
-                    <td>$10</td>
-                    <td>
-                      <button class="btn btn-primary">Edit</button>
-                      <button class="btn btn-primary">Delete</button>
-                    </td>
-                  </tr>
-                  <!-- Add more rows as needed -->
-                </tbody>
-              </table>
+              <%- include('layouts/tablerecentexpanse'); %>
             </div>
           </div>
         </div>
