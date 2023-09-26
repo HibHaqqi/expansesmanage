@@ -99,7 +99,6 @@ transaction.post(
       });
       res.status(200).json({
         status: "Success",
-        data: expanseTrans,
         message: "Transaction Berhasil di post",
       });
     } catch (error) {
