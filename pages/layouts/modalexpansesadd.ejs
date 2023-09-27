@@ -90,7 +90,18 @@
                   />
                   <label for="floatingAmount">Date Transaction</label>
                 </div>
+                <div class="form-floating">
+                  <input
+                    type="description"
+                    class="form-control mt-3"
+                    id="floatingAmount"
+                    placeholder="keterangan"
+                    name="description"
+                  />
+                  <label for="floatingAmount">Description</label>
+                </div>
               </div>
+              <div id='message' class="alert mt-2" style="display: none"></div>
             </div>
             <div class="modal-footer">
               <button
@@ -101,7 +112,7 @@
                 Close
               </button>
               <button type="submit" class="btn btn-primary">Submit</button>
-              <div id="message" class="alert" style="display: none"></div>
+              
             </div>
           </div>
         </div>

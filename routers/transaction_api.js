@@ -105,8 +105,8 @@ transaction.post(
       res.status(400).json({
         status: "failed",
         data: "req.body",
-        message: error.message,
-        stack: error,
+        message: "data tidak lengkap",
+        
       });
     }
   }
