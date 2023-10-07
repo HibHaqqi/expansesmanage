@@ -17,17 +17,25 @@
       </thead>
       <tbody>
         <% recentTransactionByUserId.forEach(transaction => { %>
-        <tr>
+        <tr id="row-<%= transaction.id %>">
           <td><%= transaction.date_transaction %></td>
           <td><%= transaction.expanses_id %></td>
           <td><%= transaction.amount %></td>
           <td>
-            <button class="btn btn-primary">Edit</button>
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#expanseedit<%= transaction.id %>"
+              class="btn btn-primary"
+            >
+              Edit
+            </button>
+            
             <button class="btn btn-primary">Delete</button>
           </td>
         </tr>
         <% }); %>
-
+        
         <!-- Add more rows as needed -->
       </tbody>
     </table>

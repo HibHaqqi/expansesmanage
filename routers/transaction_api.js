@@ -137,6 +137,86 @@ transaction.get(
   }
 );
 
+// edit by id transaction
+transaction.put(
+  "/v1/expenses/:id",
+  LoginValidator.isAuthenticated,
+  async (req, res) => {
+    const session = req.session;
+    const user_id = session.passport.user;
+    const {
+      wallet_id,
+      expanses_id,
+      amount,
+      date_transaction,
+      description,
+    } = req.body;
+
+    try {
+      const expanseTrans = await ExpansesTransaction.update({
+        user_id,
+        wallet_id,
+        expanses_id,
+        amount,
+        date_transaction,
+        description,
+      }, {
+        where: { id: req.params.id }
+      });
+
+      if (!expanseTrans) {
+        return res.status(404).json({
+          status: "failed",
+          message: "Transaction not found",
+        });
+      }
+
+      res.status(200).json({
+        status: "Success",
+        message: "Transaction Berhasil di update",
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: "failed",
+        data: "req.body",
+        message: "data tidak lengkap",
+        
+      });
+    }
+  }
+);
+//get transaction by id
+transaction.get(
+  "/v1/expenses/:id",
+  LoginValidator.isAuthenticated,
+  async (req, res) => {
+    try {
+      const expanseTrans = await ExpansesTransaction.findOne({
+        where: { id: req.params.id }
+      });
+
+      if (!expanseTrans) {
+        return res.status(404).json({
+          status: "failed",
+          message: "Transaction not found",
+        });
+      }
+      res.render('modal.expanseedit',{expanseTrans})
+      res.status(200).json({
+        status: "Success",
+        data: expanseTrans,
+        message: "Transaction Berhasil diambil",
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: "failed",
+        message: "Error retrieving transaction",
+        
+      });
+    }
+  }
+);
+
 //add income transaction
 //transaction.get('/v1/transaction/income',async (req,res)=>{
 //total Income filter by month to chart dashboard

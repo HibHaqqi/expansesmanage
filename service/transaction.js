@@ -55,7 +55,33 @@ class Transaction {
     });
     return formattedTransactions;
   }
-  
+  async getTransactionById(req,res){
+    try {
+      const expanseTrans = await ExpansesTransaction.findOne({
+        where: { id: req.params.id }
+      });
+
+      if (!expanseTrans) {
+        return res.status(404).json({
+          status: "failed",
+          message: "Transaction not found",
+        });
+      }
+
+      res.status(200).json({
+        status: "Success",
+        data: expanseTrans,
+        message: "Transaction Berhasil diambil",
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: "failed",
+        message: "Error retrieving transaction",
+        
+      });
+    }
+
+  }
 }
 
 module.exports = Transaction;
