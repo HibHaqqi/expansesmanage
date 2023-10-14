@@ -25,6 +25,9 @@ $(document).ready(function() {
         success: function(response) {
           // Handle the success response (e.g., close the modal)
           $("#expanseedit" + transactionId).modal("hide");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
         },
         error: function(error) {
           // Handle the error response
