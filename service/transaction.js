@@ -21,13 +21,14 @@ class Transaction {
   async transactionByMonthCategory(userId) {
     const result = await sequelize.query(
       `SELECT
-                    expanses_id,
-                    DATE_TRUNC('month', date_transaction) AS month,
-                    SUM(amount) AS total_amount 
-                FROM "ExpansesTransactions"
-                WHERE user_id = :userId
-                GROUP BY expanses_id,month
-                ORDER BY month;`,
+      E.category AS category,  -- Include the category from Expanse
+      DATE_TRUNC('month', ET.date_transaction) AS month,
+      SUM(ET.amount) AS total_amount
+    FROM "ExpansesTransactions" AS ET
+    JOIN "Expanses" AS E ON ET.expanses_id = E.id
+    WHERE ET.user_id = :userId
+    GROUP BY E.category, month
+    ORDER BY month;`,
                 { replacements: { userId: userId }, type: Sequelize.QueryTypes.SELECT }
     );
     return result;

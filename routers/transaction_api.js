@@ -48,12 +48,12 @@ transaction.get("/v1/expenses/bycategory",  LoginValidator.isAuthenticated,async
       const categories = {}; // Object to store data by category
       
       transactionByMonthCategory.forEach(item => {
-        const categoryId = item.expanses_id; // Category ID
+        const categoryId = item.category; // Category ID
         const month = new Date(item.month).getMonth(); // Get the month index (0-11)
   
         if (!categories[categoryId]) {
           categories[categoryId] = {
-            label: `Category ${categoryId}`,
+            label: `${categoryId}`,
             data: Array(12).fill(0), // Initialize an array to store data for each month
             backgroundColor: getRandomColor() // You can define a function to generate random colors
           };
