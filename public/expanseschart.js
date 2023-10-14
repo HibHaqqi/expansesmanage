@@ -1,27 +1,4 @@
 
-
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "Food",
-      data: [20000,40000,50000,250000,400000,500000,900000],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-    },
-    {
-      label: "Transport",
-      data: [20000,40000,50000,250000,400000,500000,900000],
-      backgroundColor: "rgba(75, 192, 192, 0.2)",
-    },
-    {
-      label: "Entertain",
-      data: [60000,80000,40000,550000,700000,100000,200000],
-      backgroundColor: "#299b63",
-    },
-  ],
-};
-
 fetch('/transaction/v1/expenses/bycategory', {
   method: 'GET', // Use the appropriate HTTP method
   headers: {
