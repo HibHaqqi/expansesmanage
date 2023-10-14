@@ -22,29 +22,40 @@ const data = {
   ],
 };
 
-var ctx = document.getElementById("expanseByCategoryChart").getContext("2d");
-ctx.canvas.height = 200;
-var expanseByCategoryChart = new Chart(ctx, {
-  type: "bar",
-  data: data,
-  options: {
-    plugins: {
-      title: {
-        display: true,
-        text: "Chart.js Bar Chart - Stacked",
-      },
-    },
-    responsive: true,
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
-      },
-    },
+fetch('/transaction/v1/expenses/bycategory', {
+  method: 'GET', // Use the appropriate HTTP method
+  headers: {
+    'Content-Type': 'application/json',
   },
-});
+  
+})
+  .then(response => response.json())
+  .then(data => {
+    // Get the data from the response
+    const chartData = data.data;
+
+    // Create the chart using Chart.js
+    const ctx = document.getElementById('expanseByCategoryChart').getContext('2d');
+    const expanseByCategoryChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: {
+        scales: {
+          x: {
+            stacked: true, // Stack bars on the x-axis (months)
+          },
+          y: {
+            stacked: true, // Stack bars on the y-axis (categories)
+          },
+        },
+      },
+    });
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+
 
 ctx = document.getElementById("expensesByCategoryChart");
 var expensesByCategoryChart = new Chart(ctx, {

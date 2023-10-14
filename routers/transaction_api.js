@@ -28,20 +28,56 @@ transaction.get("/v1/expenses/bymonth", async (req, res) => {
     });
   }
 });
-
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 //total expanses filter by month and category to chart dashboard
-transaction.get("/v1/expenses/bycategory", async (req, res) => {
+transaction.get("/v1/expenses/bycategory",  LoginValidator.isAuthenticated,async (req, res) => {
   //total expanses filter by month and category to chart dashboard
   try {
-    const bodyJson = req.body;
+    const session = req.session;
+    const user_id = session.passport.user;
     const transactionService = new Transaction();
     const transactionByMonthCategory =
-      await transactionService.transactionByMonthCategory(bodyJson);
-
-    res.status(200).json({
-      status: "success",
-      data: transactionByMonthCategory,
-    });
+      await transactionService.transactionByMonthCategory(user_id);
+      const categories = {}; // Object to store data by category
+      
+      transactionByMonthCategory.forEach(item => {
+        const categoryId = item.expanses_id; // Category ID
+        const month = new Date(item.month).getMonth(); // Get the month index (0-11)
+  
+        if (!categories[categoryId]) {
+          categories[categoryId] = {
+            label: `Category ${categoryId}`,
+            data: Array(12).fill(0), // Initialize an array to store data for each month
+            backgroundColor: getRandomColor() // You can define a function to generate random colors
+          };
+        }
+  
+        categories[categoryId].data[month] = parseFloat(item.total_amount);
+      });
+  
+      // Prepare the data to be sent to the client
+      const labels = [
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+      ];
+  
+      const chartData = {
+        labels: labels,
+        datasets: Object.values(categories)
+      };
+  
+      res.status(200).json({
+        status: "success",
+        data: chartData,
+      });
+    
   } catch (error) {
     res.status(400).json({
       status: "failed",
