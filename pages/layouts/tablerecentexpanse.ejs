@@ -25,24 +25,33 @@
           <td><%= transaction.wallet %></td>
           <td>
             <button
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#expanseedit<%= transaction.id %>"
-            class="btn btn-primary edit-button"
-            data-transaction-id="<%= transaction.id %>"
-            data-transaction-date="<%= transaction.date_transaction %>"
-            data-transaction-expense="<%= transaction.expanses_id %>"
-            data-transaction-amount="<%= transaction.amount %>"
-            data-transaction-wallet="<%= transaction.wallet %>"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#expanseedit<%= transaction.id %>"
+              class="btn btn-primary edit-button"
+              data-transaction-id="<%= transaction.id %>"
+              data-transaction-date="<%= transaction.date_transaction %>"
+              data-transaction-expense="<%= transaction.expanses_id %>"
+              data-transaction-amount="<%= transaction.amount %>"
+              data-transaction-wallet="<%= transaction.wallet %>"
             >
               Edit
             </button>
-            
-            <button class="btn btn-primary">Delete</button>
+
+            <button
+              class="btn btn-danger delete-button"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteConfirmationExpanse<%= transaction.id %>"
+              data-transaction-id="<%= transaction.id %>"
+            >
+              Delete
+            </button>
           </td>
         </tr>
         <% }); %>
-        
+
         <!-- Add more rows as needed -->
       </tbody>
     </table>

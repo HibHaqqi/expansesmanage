@@ -217,6 +217,22 @@ transaction.get(
   }
 );
 
+transaction.delete('/v1/delete-expanse/:id', async (req, res) => {
+  try {
+    const deletedExpanse = await ExpansesTransaction.destroy({
+      where: { id: req.params.id } // Match by the 'id' field
+    });
+
+    if (deletedExpanse === 0) {
+      return res.status(404).json({ error: 'Transaction not found' }); // Transaction not found
+    }
+
+    return res.status(204).send(); // Transaction deleted successfully
+  } catch (error) {
+    return res.status(500).json({ error: 'Error deleting transaction' }); // Handle database error
+  }
+});
+
 //add income transaction
 //transaction.get('/v1/transaction/income',async (req,res)=>{
 //total Income filter by month to chart dashboard
