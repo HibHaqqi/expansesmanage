@@ -13,106 +13,54 @@
   </head>
   <body>
     <form action="/transaction/v1/expenses" method="POST">
-      <div
-        class="modal fade"
-        id="expansesadd"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="expansesadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Add Transaction Expanses
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <h5 class="modal-title" id="exampleModalLabel">Add Transaction Expenses</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <div class="form-floating">
-                <div class="col-md mb-3">
-                  <div class="form-floating">
-                    <select
-                      class="form-select"
-                      id="floatingSelectGrid"
-                      aria-label="Floating label select example"
-                      name="expanses_id"
-                    >
-                      <% expanse.forEach(function(expanse){ %>
-                      <option value="<%= expanse.id %>">
-                        <%= expanse.category %>
-                      </option>
-                      <% }); %>
-                    </select>
-                    <label for="floatingSelectGrid">Category Expanse</label>
-                  </div>
-                </div>
-                <div class="form-floating">
-                  <input
-                    type="amount"
-                    class="form-control"
-                    id="floatingAmount"
-                    placeholder="45000"
-                    name="amount"
-                  />
-                  <label for="floatingAmount">Amount Transaction</label>
-                </div>
-                <div class="form-floating mt-3">
-                  <select
-                    class="form-select"
-                    id="floatingSelectGrid"
-                    aria-label="Floating label select example"
-                    name="wallet_id"
-                  >
-                    <% getWalletByUserId.forEach(function(getWalletByUserId){ %>
-                    <option value="<%= getWalletByUserId.id %>">
-                      <%= getWalletByUserId.category %>
-                    </option>
-                    <% }); %>
-                  </select>
-                  <label for="floatingSelectGrid">Wallet</label>
-                </div>
-                <div class="form-floating mt-3">
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="floatingAmount"
-                    placeholder="DD-MM-YYYY"
-                    value=""
-                    min="2010-01-01"
-                    max="2025-12-31"
-                    name="date_transaction"
-                  />
-                  <label for="floatingAmount">Date Transaction</label>
-                </div>
-                <div class="form-floating">
-                  <input
-                    type="description"
-                    class="form-control mt-3"
-                    id="floatingAmount"
-                    placeholder="keterangan"
-                    name="description"
-                  />
-                  <label for="floatingAmount">Description</label>
-                </div>
+                <!-- Category Expense Dropdown -->
+                <select class="form-select" aria-label="Category Expense" name="expanses_id" required>
+                  <option value="" selected disabled>Select Category Expense</option>
+                  <% expanse.forEach(function(expanse){ %>
+                    <option value="<%= expanse.id %>"><%= expanse.category %></option>
+                  <% }); %>
+                </select>
+                <label for="expanses_id">Category Expense</label>
               </div>
-              <div id='message' class="alert mt-2" style="display: none"></div>
+              <!-- Amount Input -->
+              <div class="form-floating mt-3">
+                <input type="number" class="form-control" id="floatingAmount" placeholder="Amount Transaction" name="amount" required>
+                <label for="amount">Amount Transaction</label>
+              </div>
+              <!-- Wallet Dropdown -->
+              <div class="form-floating mt-3">
+                <select class="form-select" aria-label="Wallet" name="wallet_id" required>
+                  <option value="" selected disabled>Select Wallet</option>
+                  <% getWalletByUserId.forEach(function(getWalletByUserId){ %>
+                    <option value="<%= getWalletByUserId.id %>"><%= getWalletByUserId.category %></option>
+                  <% }); %>
+                </select>
+                <label for="wallet_id">Wallet</label>
+              </div>
+              <!-- Date Input -->
+              <div class="form-floating mt-3">
+                <input type="date" class="form-control" id="date_transaction" name="date_transaction" required>
+                <label for="date_transaction">Date Transaction</label>
+              </div>
+              <!-- Description Input -->
+              <div class="form-floating mt-3">
+                <input type="text" class="form-control" id="description" placeholder="Description" name="description">
+                <label for="description">Description</label>
+              </div>
             </div>
+            <div id='message' class="alert mt-2" style="display: none"></div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Submit</button>
-              
             </div>
           </div>
         </div>

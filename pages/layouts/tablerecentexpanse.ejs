@@ -12,6 +12,7 @@
           <th>Date</th>
           <th>Category</th>
           <th>Amount</th>
+          <th>Wallet</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -21,12 +22,18 @@
           <td><%= transaction.date_transaction %></td>
           <td><%= transaction.expanses_id %></td>
           <td><%= transaction.amount %></td>
+          <td><%= transaction.wallet %></td>
           <td>
             <button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#expanseedit<%= transaction.id %>"
-              class="btn btn-primary"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#expanseedit<%= transaction.id %>"
+            class="btn btn-primary edit-button"
+            data-transaction-id="<%= transaction.id %>"
+            data-transaction-date="<%= transaction.date_transaction %>"
+            data-transaction-expense="<%= transaction.expanses_id %>"
+            data-transaction-amount="<%= transaction.amount %>"
+            data-transaction-wallet="<%= transaction.wallet %>"
             >
               Edit
             </button>

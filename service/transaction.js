@@ -1,4 +1,4 @@
-const { ExpansesTransaction, Expanses, sequelize } = require("../models");
+const { ExpansesTransaction, Expanses, Wallet ,sequelize } = require("../models");
 const Sequelize = require("sequelize");
 
 class Transaction {
@@ -36,8 +36,8 @@ class Transaction {
       where: { user_id: userId },
       limit: 5,
       order: [["date_transaction", "DESC"]],
-      attributes: ["amount", "date_transaction"],
-      include: { model: Expanses, attribute: ['category'] },
+      attributes: ["id","amount", "date_transaction"],
+      include: [{ model: Expanses, attribute: ['category']}, {model: Wallet, attribute: ['category']}]
     });
     
     const formattedTransactions = transactions.map((transaction) => {
@@ -48,9 +48,11 @@ class Transaction {
       }).format(transaction.date_transaction);
     
       return {
+        id :transaction.id,
         expanses_id: transaction.Expanse.category,
         amount: transaction.amount,
         date_transaction: formattedDate,
+        wallet: transaction.Wallet.category
       };
     });
     return formattedTransactions;
