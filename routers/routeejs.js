@@ -29,7 +29,9 @@ pages.get("/dashboard/expanse", isAuthenticated, async (req, res) => {
   const walletService = new Wallets();
   const getWalletByUserId = await walletService.getWalletByUserId(user_id);
   const expanse = await Expanses.findAll();
-  res.render("dashboardexpanses", { recentTransactionByUserId, expanse,getWalletByUserId });
+  const availableData = await transactionService.getAvailableMonthsAndYears(user_id);
+    
+  res.render("dashboardexpanses", { recentTransactionByUserId, expanse,getWalletByUserId ,availableData});
 });
 
 pages.get("/dashboard/income" /*isAuthenticated,*/, (req, res) => {

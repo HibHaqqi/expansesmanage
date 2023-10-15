@@ -1,5 +1,11 @@
-const { ExpansesTransaction, Expanses, Wallet ,sequelize } = require("../models");
-const Sequelize = require("sequelize");
+const {
+  ExpansesTransaction,
+  Expanses,
+  Wallet,
+  sequelize
+  
+} = require("../models");
+const {Sequelize, Op} = require("sequelize");
 
 class Transaction {
   constructor() {
@@ -29,41 +35,91 @@ class Transaction {
     WHERE ET.user_id = :userId
     GROUP BY E.category, month
     ORDER BY month;`,
-                { replacements: { userId: userId }, type: Sequelize.QueryTypes.SELECT }
+      { replacements: { userId: userId }, type: Sequelize.QueryTypes.SELECT }
     );
     return result;
   }
 
+  async getAvailableMonthsAndYears(userId) {
+    try {
+      // Find the minimum and maximum date_transaction values for the user
+      const minMaxDate = await ExpansesTransaction.findOne({
+        where: {
+          user_id: userId,
+        },
+        attributes: [
+          [sequelize.fn('min', sequelize.col('date_transaction')), 'min_date'],
+          [sequelize.fn('max', sequelize.col('date_transaction')), 'max_date'],
+        ],
+      });
+  
+      // Extract the minimum and maximum dates
+      const minDate = minMaxDate.getDataValue('min_date');
+      const maxDate = minMaxDate.getDataValue('max_date');
+  
+      // Create an array to store the available months and years
+      const availableMonths = [];
+      const availableYears = [];
+  
+      // Loop through the dates and populate the arrays
+      let currentDate = new Date(minDate); // Start from the minimum date
+      while (currentDate <= maxDate) {
+        const month = currentDate.getMonth() + 1; // Months are 0-based
+        const year = currentDate.getFullYear();
+  
+        // Add the month and year to the arrays if not already added
+        if (!availableMonths.includes(month)) {
+          availableMonths.push(month);
+        }
+        if (!availableYears.includes(year)) {
+          availableYears.push(year);
+        }
+  
+        // Move to the next month
+        currentDate.setMonth(currentDate.getMonth() + 1);
+      }
+  
+      return {
+        months: availableMonths,
+        years: availableYears,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
   async recentTransactionByUserId(userId, res) {
     const transactions = await ExpansesTransaction.findAll({
       where: { user_id: userId },
       limit: 5,
       order: [["date_transaction", "DESC"]],
-      attributes: ["id","amount", "date_transaction"],
-      include: [{ model: Expanses, attribute: ['category']}, {model: Wallet, attribute: ['category']}]
+      attributes: ["id", "amount", "date_transaction"],
+      include: [
+        { model: Expanses, attribute: ["category"] },
+        { model: Wallet, attribute: ["category"] },
+      ],
     });
-    
+
     const formattedTransactions = transactions.map((transaction) => {
       const formattedDate = new Intl.DateTimeFormat("en-US", {
         day: "2-digit",
         month: "short",
         year: "2-digit",
       }).format(transaction.date_transaction);
-    
+
       return {
-        id :transaction.id,
+        id: transaction.id,
         expanses_id: transaction.Expanse.category,
         amount: transaction.amount,
         date_transaction: formattedDate,
-        wallet: transaction.Wallet.category
+        wallet: transaction.Wallet.category,
       };
     });
     return formattedTransactions;
   }
-  async getTransactionById(req,res){
+  async getTransactionById(req, res) {
     try {
       const expanseTrans = await ExpansesTransaction.findOne({
-        where: { id: req.params.id }
+        where: { id: req.params.id },
       });
 
       if (!expanseTrans) {
@@ -82,10 +138,8 @@ class Transaction {
       res.status(400).json({
         status: "failed",
         message: "Error retrieving transaction",
-        
       });
     }
-
   }
 }
 

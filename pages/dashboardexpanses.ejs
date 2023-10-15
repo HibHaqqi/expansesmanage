@@ -49,15 +49,57 @@
               </div>
               <%- include('layouts/modalexpansesadd'); %>
               <!-- Insert your table here -->
-              <%- include('layouts/tablerecentexpanse'); %>
-              <%- include('layouts/modalexpanseedit'); %>
-              <%- include('layouts/deleteConfirmationExpanse'); %>
+              <%- include('layouts/tablerecentexpanse'); %> <%-
+              include('layouts/modalexpanseedit'); %> <%-
+              include('layouts/deleteConfirmationExpanse'); %>
             </div>
           </div>
         </div>
         <div class="card col-sm-4 mt-4">
           <div class="col-sm-6 w-100">
             <h2>MTD Expenses by Category</h2>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  
+                  <select
+                    class="form-select form-select-sm"
+                    id="month"
+                    aria-label="month-transaction"
+                    name="month"
+                    required
+                  >
+                    <option value="" selected disabled>Select Month</option>
+                    <% availableData.months.forEach(function(month) { %>
+                      <option value="<%= month %>"><%= month %></option>
+                    <% }); %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  
+                  <select
+                    class="form-select form-select-sm"
+                    id="year"
+                    aria-label="year-transaction"
+                    name="year"
+                    required
+                  >
+                    <option value="" selected disabled>Select Year</option>
+                    <% availableData.years.forEach(function(year) { %>
+                      <option value="<%= year %>"><%= year %></option>
+                    <% }); %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-12 mt-2">
+                <button type="button" class="btn btn-primary btn-sm" id="filterButton">
+                  Apply Filter
+                </button>
+              </div>
+            </div>
+
             <!-- Insert your pie chart here -->
             <canvas id="expensesByCategoryBarChart"></canvas>
           </div>
@@ -69,7 +111,7 @@
         </div>
       </div>
     </div>
-    
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
