@@ -13,7 +13,7 @@ $(document).ready(function () {
           
           // Hide the message after 3 seconds
           setTimeout(function () {
-            $("#message").hide();
+            $("#walletModal").modal("hide");
           }, 3000);
   
           // Reload the page or perform other actions if needed

@@ -10,21 +10,17 @@ $(document).ready(function () {
       data: formData,
       success: function (response) {
         $("#message").addClass("alert-success").text(response.message).show();
-        // Close the modal
-
-        setTimeout(function () {
-          $("#expansesadd").modal("hide");
-        }, 10000);
-
+        
         // Hide the message after 3 seconds
-
         setTimeout(function () {
-          location.reload();
-        }, 1000);
+          $("#walletModal").modal("hide");
+        }, 3000);
+
+        // Reload the page or perform other actions if needed
+        location.reload();
       },
       error: function (response) {
-        $('#message').addClass('alert-danger').text(response.message).show();
-
+        $("#message").addClass("alert-danger").text(response.message).show();
 
         // Hide the message after 3 seconds
         setTimeout(function () {
