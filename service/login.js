@@ -47,14 +47,20 @@ class LoginValidator {
       let error = [];
       //validasi data
       if (!name || !email || !password || !role) {
-        return res.status(400).json({ message: "Data tidak lengkap" });
+        req.flash("error", "Data tidak lengkap");
+
+        return res.redirect("/");
+        //return res.status(400).json({ message: "" });
         //error.push({ message: "Data tidak lengkap" });
       }
 
       //cek apakah email sudah terdaftar
       const user = await User.findOne({ where: { email } });
       if (user) {
-        return res.status(409).json({ message: "Email sudah terdaftar" });
+        req.flash("error", "Email sudah terdaftar");
+
+        return res.redirect("/");
+        //return res.status(409).json({ message: "" });
         //error.push({ message: "Email sudah terdaftar" });
       }
 
@@ -70,12 +76,11 @@ class LoginValidator {
         password: hashedPassword,
         role,
       });
-
-      //kirim response dengan data user baru
-      //req.flash("success_msg", "Successfully registered. Login");
-      //res.redirect("homepage");
-
-      res.status(201).json({ message: "User berhasil dibuat", data: newUser });
+      req.user = user;
+      next();
+     
+      //res.redirect("/dashboard"); // successful regis
+      //res.status(201).json({ message: "User berhasil dibuat", data: newUser });
     } catch (error) {
       //tangani error
       console.error(error);

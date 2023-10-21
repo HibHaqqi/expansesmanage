@@ -21,10 +21,21 @@ login.post("/login", LoginValidator.validateLogin, (req, res, next) => {
   })(req, res, next);
 });
 //fungsi registrasi
-login.post(
-  "/registration",
-  LoginValidator.registration,
-  async (req, res) => {}
-);
+login.post("/registration", LoginValidator.registration, async (req, res,next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err); // handle error
+    }
+    if (!user) {
+      return res.redirect("/homepage"); // handle incorrect user
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err); // handle error
+      }
+      return res.redirect("/dashboard"); // successful login
+    });
+  })(req, res, next);
+});
 
 module.exports = login;
