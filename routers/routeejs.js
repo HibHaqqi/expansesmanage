@@ -17,8 +17,12 @@ pages.get("/login", (req, res) => {
   res.render("login");
 });
 
-pages.get("/dashboard", isAuthenticated, (req, res) => {
-  res.render("dashboard");
+pages.get("/dashboard", isAuthenticated,async (req, res) => {
+  const user_id = req.session.passport.user;
+  const walletService = new Wallets();
+  const getWalletByUserId = await walletService.getWalletByUserId(user_id);
+  console.log(getWalletByUserId);
+  res.render("dashboard",{getWalletByUserId});
 });
 
 pages.get("/dashboard/expanse", isAuthenticated, async (req, res) => {
