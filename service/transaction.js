@@ -2,10 +2,9 @@ const {
   ExpansesTransaction,
   Expanses,
   Wallet,
-  sequelize
-  
+  sequelize,
 } = require("../models");
-const {Sequelize, Op} = require("sequelize");
+const { Sequelize, Op } = require("sequelize");
 
 class Transaction {
   constructor() {
@@ -39,7 +38,36 @@ class Transaction {
     );
     return result;
   }
+  //fetch data from db transaction filter by user month and year
+  async transactionByFilterMonth(userId, selectedMonth, selectedYear) {
+    const result = await ExpansesTransaction.findAll({
+      attributes: [
+        [Sequelize.fn('DATE_TRUNC', 'month', Sequelize.col('date_transaction')), 'month'],
+        [Sequelize.col('expanses_id'), 'category'],
+        [Sequelize.fn('SUM', Sequelize.col('amount')), 'total_amount'],
+      ],
+      where: {
+        user_id: userId,
+        date_transaction: {
+          [Op.and]: [
+            { [Op.gte]: new Date(selectedYear, selectedMonth - 1, 1) },
+            { [Op.lt]: new Date(selectedYear, selectedMonth, 1) },
+          ],
+        },
+      },
+      include: {
+        model: Expanses,
+        attributes: ['category'], // Assuming 'category' is a field in the Expanses model
+      },
+      group: ['expanses_id', 'month', 'Expanse.id', 'Expanse.category'],
+      order: [Sequelize.col('month')],
+    });
+   
+  
+    return result;
+  }
 
+  //filter data by month & year transaction menu dropdown
   async getAvailableMonthsAndYears(userId) {
     try {
       // Find the minimum and maximum date_transaction values for the user
@@ -48,25 +76,25 @@ class Transaction {
           user_id: userId,
         },
         attributes: [
-          [sequelize.fn('min', sequelize.col('date_transaction')), 'min_date'],
-          [sequelize.fn('max', sequelize.col('date_transaction')), 'max_date'],
+          [sequelize.fn("min", sequelize.col("date_transaction")), "min_date"],
+          [sequelize.fn("max", sequelize.col("date_transaction")), "max_date"],
         ],
       });
-  
+
       // Extract the minimum and maximum dates
-      const minDate = minMaxDate.getDataValue('min_date');
-      const maxDate = minMaxDate.getDataValue('max_date');
-  
+      const minDate = minMaxDate.getDataValue("min_date");
+      const maxDate = minMaxDate.getDataValue("max_date");
+
       // Create an array to store the available months and years
       const availableMonths = [];
       const availableYears = [];
-  
+
       // Loop through the dates and populate the arrays
       let currentDate = new Date(minDate); // Start from the minimum date
       while (currentDate <= maxDate) {
         const month = currentDate.getMonth() + 1; // Months are 0-based
         const year = currentDate.getFullYear();
-  
+
         // Add the month and year to the arrays if not already added
         if (!availableMonths.includes(month)) {
           availableMonths.push(month);
@@ -74,11 +102,11 @@ class Transaction {
         if (!availableYears.includes(year)) {
           availableYears.push(year);
         }
-  
+
         // Move to the next month
         currentDate.setMonth(currentDate.getMonth() + 1);
       }
-  
+
       return {
         months: availableMonths,
         years: availableYears,

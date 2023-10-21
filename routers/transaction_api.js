@@ -87,12 +87,48 @@ transaction.get("/v1/expenses/bycategory",  LoginValidator.isAuthenticated,async
   }
 });
 
+transaction.get("/v1/expenses/filtermonth", LoginValidator.isAuthenticated, async (req, res) => {
+  try {
+    const session = req.session;
+    const user_id = session.passport.user;
+    const transactionService = new Transaction();
+
+    // Get the selected year and month from request query
+    const selectedMonth = req.query.selectedMonth; // Represents the month
+    const selectedYear = req.query.selectedYear; // Represents the year
+
+    // Check if both selectedYear and selectedMonth are provided
+    if (!selectedMonth || !selectedYear) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Both selectedYear and selectedMonth are required.",
+      });
+    }
+
+    const transactionByMonthCategory = await transactionService.transactionByFilterMonth(user_id, selectedYear, selectedMonth);
+   //console.log(transactionByMonthCategory.data);
+   const transformedExpenses = transactionByMonthCategory.map(item => ({
+   total_amount: parseFloat(item.getDataValue('total_amount')),
+   category: item.Expanse.category,
+  }));
+   
+   
+
+    res.status(200).json({
+      status: "success",
+      data: transformedExpenses,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      status: "failed",
+      message: "An error occurred while processing the request.",
+      stack: error,
+    });
+  }
+});
 
 
-
-//transaction.get('/v1/expenses',async (req,res)=>{
-//recent add transanction expanses table on dashboard
-//})
 
 transaction.get("/v1/expenses", async (req, res) => {
   const allTransaction = await ExpansesTransaction.findAll();
