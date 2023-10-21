@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <% if (getWalletByUserId.length === 0) { %>
+    <!-- Wallet Confirmation Modal -->
+    <form action="/wallet/v1/wallet" method="POST">
+      <div
+        class="modal fade"
+        id="walletModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="walletModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="walletModalLabel">Create Wallet</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                You don't have a wallet. Please create a wallet to access
+                certain features.
+              </p>
+              <div class="form-floating mt-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="category"
+                  placeholder="WalletName"
+                  name="category"
+                  required
+                />
+                <label for="category">Wallet Name</label>
+              </div>
+              <div class="form-floating mt-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="description"
+                  placeholder="Description"
+                  name="description"
+                />
+                <label for="description">Description</label>
+              </div>
+              <!-- You can add a form to create a wallet here or a button to initiate the process -->
+              <div id='message' class="alert mt-2" style="display: none"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <!-- You can add a button to create a wallet here if needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    
+    <% } %>
+  </body>
+</html>

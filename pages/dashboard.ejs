@@ -110,41 +110,16 @@
       </div>
 
     </div>
-
-    <% if (getWalletByUserId.length === 0) { %>
-      <!-- Wallet Confirmation Modal -->
-      <div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="walletModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="walletModalLabel">Create Wallet</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>You don't have a wallet. Please create a wallet to access certain features.</p>
-              <!-- You can add a form to create a wallet here or a button to initiate the process -->
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <!-- You can add a button to create a wallet here if needed -->
-            </div>
-          </div>
-        </div>
-      </div>
-    
-     
-    <% } %>
+    <%- include('layouts/modalToAddWalletFirst'); %>
+   
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="/dashboardchart.js"></script>
     <script>
       // JavaScript to display the modal
-      $(document).ready(function() {
-        $('#walletModal').modal('show');
+      $(document).ready(function () {
+        $("#walletModal").modal("show");
       });
     </script>
 </body>

@@ -48,10 +48,9 @@
                 </button>
               </div>
               <%- include('layouts/modalexpansesadd'); %>
-              <!-- Insert your table here -->
-              <%- include('layouts/tablerecentexpanse'); %> <%-
-              include('layouts/modalexpanseedit'); %> <%-
-              include('layouts/deleteConfirmationExpanse'); %>
+              <%- include('layouts/tablerecentexpanse'); %> 
+              <%-include('layouts/modalexpanseedit'); %> 
+              <%-include('layouts/deleteConfirmationExpanse'); %>
             </div>
           </div>
         </div>
@@ -61,7 +60,6 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-floating">
-                  
                   <select
                     class="form-select form-select-sm"
                     id="month"
@@ -71,14 +69,13 @@
                   >
                     <option value="9" selected disabled>9</option>
                     <% availableData.months.forEach(function(month) { %>
-                      <option value="<%= month %>"><%= month %></option>
+                    <option value="<%= month %>"><%= month %></option>
                     <% }); %>
                   </select>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-floating">
-                  
                   <select
                     class="form-select form-select-sm"
                     id="year"
@@ -88,13 +85,17 @@
                   >
                     <option value="2023" selected disabled>2023</option>
                     <% availableData.years.forEach(function(year) { %>
-                      <option value="<%= year %>"><%= year %></option>
+                    <option value="<%= year %>"><%= year %></option>
                     <% }); %>
                   </select>
                 </div>
               </div>
               <div class="col-sm-12 mt-2">
-                <button type="button" class="btn btn-primary btn-sm" id="filterButton">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  id="filterButton"
+                >
                   Apply Filter
                 </button>
               </div>
